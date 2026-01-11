@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Validator Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            font-size: 20px;
+        }
+
+        .strength-meter {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .strength-label {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .results {
+            margin-top: 30px;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            background: #f5f5f5;
+            transition: all 0.3s;
+        }
+
+        .result-item.passed {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .result-item.failed {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+
+        .result-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .result-text {
+            flex: 1;
+        }
+
+        .result-message {
+            font-size: 12px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .generator-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .generator-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .generated-password {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .generated-password input {
+            flex: 1;
+        }
+
+        .copy-btn {
+            padding: 15px 25px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .copy-btn:hover {
+            background: #218838;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-item {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Password Validator Pro</h1>
+        <p class="subtitle">Valida y genera contraseñas seguras</p>
+
+        <div class="input-group">
+            <input type="password" id="password" placeholder="Ingresa tu contraseña">
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <div class="strength-meter">
+            <div class="strength-bar" id="strengthBar"></div>
+        </div>
+        <div class="strength-label" id="strengthLabel">Ingresa una contraseña</div>
+
+        <div class="results" id="results"></div>
+
+        <div class="generator-section">
+            <h3>Generador de Contraseñas</h3>
+            <label>Longitud: <span id="lengthValue">12</span></label>
+            <input type="range" id="length" min="8" max="32" value="12" 
+                   style="width: 100%; margin: 10px 0;">
+            
+            <div class="buttons">
+                <button class="btn-primary" onclick="generatePassword()">
+                    ⚡ Generar Contraseña
+                </button>
+            </div>
+
+            <div class="generated-password" id="generatedPasswordDiv" style="display: none;">
+                <input type="text" id="generatedPassword" readonly>
+                <button class="copy-btn" onclick="copyPassword()">📋 Copiar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthLabel = document.getElementById('strengthLabel');
+        const resultsDiv = document.getElementById('results');
+        const lengthSlider = document.getElementById('length');
+        const lengthValue = document.getElementById('lengthValue');
+
+        let debounceTimer;
+
+        passwordInput.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => validatePassword(), 300);
+        });
+
+        lengthSlider.addEventListener('input', function() {
+            lengthValue.textContent = this.value;
+        });
+
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const type = input.type === 'password' ? 'text' : 'password';
+            input.type = type;
+        }
+
+        async function validatePassword() {
+            const password = passwordInput.value;
+
+            if (!password) {
+                strengthBar.style.width = '0%';
+                strengthLabel.textContent = 'Ingresa una contraseña';
+                resultsDiv.innerHTML = '';
+                return;
+            }
+
+            try {
+                const response = await fetch('/validate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ password: password })
+                });
+
+                const data = await response.json();
+                updateUI(data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function updateUI(data) {
+            const score = data.score;
+            strengthBar.style.width = score + '%';
+            
+            if (score < 40) {
+                strengthBar.style.background = '#dc3545';
+            } else if (score < 60) {
+                strengthBar.style.background = '#ffc107';
+            } else if (score < 80) {
+                strengthBar.style.background = '#17a2b8';
+            } else {
+                strengthBar.style.background = '#28a745';
+            }
+
+            strengthLabel.textContent = data.strength + ' (' + score + '%)';
+            strengthLabel.style.color = strengthBar.style.background;
+
+            resultsDiv.innerHTML = '';
+            data.results.forEach(result => {
+                const item = document.createElement('div');
+                item.className = 'result-item ' + (result.passed ? 'passed' : 'failed');
+                item.innerHTML = `
+                    <span class="result-icon">${result.passed ? '✅' : '❌'}</span>
+                    <div class="result-text">
+                        <div>${result.rule}</div>
+                        <div class="result-message">${result.message}</div>
+                    </div>
+                `;
+                resultsDiv.appendChild(item);
+            });
+        }
+
+        async function generatePassword() {
+            const length = lengthSlider.value;
+
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ length: parseInt(length) })
+                });
+
+                const data = await response.json();
+                const generatedInput = document.getElementById('generatedPassword');
+                generatedInput.value = data.password;
+                document.getElementById('generatedPasswordDiv').style.display = 'flex';
+                
+                passwordInput.value = data.password;
+                validatePassword();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function copyPassword() {
+            const input = document.getElementById('generatedPassword');
+            input.select();
+            document.execCommand('copy');
+            
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Copiado!';
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
