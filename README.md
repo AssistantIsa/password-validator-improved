@@ -5,6 +5,8 @@ A modern and comprehensive web application for validating and generating secure 
 ![Password Validator](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.8+-green.svg)
 ![Flask](https://img.shields.io/badge/flask-3.0+-red.svg)
+![Coverage](https://img.shields.io/badge/coverage-97%25-brightgreen.svg)
+![Tests](https://img.shields.io/badge/tests-passing-success.svg)
 ![License](https://img.shields.io/badge/license-MIT-yellow.svg)
 
 ## ✨ Features

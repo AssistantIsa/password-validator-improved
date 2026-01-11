@@ -107,3 +107,6 @@ class TestFlaskApp:
                                   content_type='application/json')
             data = json.loads(response.data)
             assert 'strength' in data
+    def test_app_config(self)
+       """Test: app setup"""
+       assert app.config['TESTING'] == True
