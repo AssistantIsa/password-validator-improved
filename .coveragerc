@@ -1,9 +1,12 @@
 [run]
+source = .
 omit = 
     */venv/*
     */tests/*
     */__pycache__/*
     */htmlcov/*
+    */site-packages/*
+    */.coverage
     setup.py
 
 [report]
@@ -15,4 +18,6 @@ exclude_lines =
     if __name__ == .__main__.:
     if TYPE_CHECKING:
     @abstractmethod
-    import random
+
+[html]
+directory = htmlcov

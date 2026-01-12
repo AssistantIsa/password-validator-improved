@@ -1,4 +1,5 @@
-# Python
+# Archivos de Python
+__pycache__
 ```
 *.py[cod]
 *$py.class
@@ -19,6 +20,12 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Archivos de sistema
+.DS_Store
+
+# Archivos de cobertura de código
+htmlcov/
 
 # Virtual Environment
 venv/

@@ -125,3 +125,8 @@ class TestAppExecution:
     def test_app_name(self):
         """Test nombre de la app"""
         assert app.name == 'app' or app.import_name == 'app'
+    def test_app_module(client):
+        """Test que el modulo app tiene las funciones necesarias"""
+        import app as app_module
+        assert hasattr(app_module, 'app')
+
