@@ -61,5 +61,5 @@ def get_strength_label(score):
     else:
         return 'Muy Fuerte'
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     app.run(debug=True, host='0.0.0.0', port=5000)

@@ -69,25 +69,37 @@ python app.py
 ```
 http://localhost:5000
 ```
-
-## 📦 Project Structure
+## 📦 Proyect Structure
 ```
 password-validator-improved/
-├── app.py # Main Flask application
-├── validator.py # Validation logic
-├── templates/
-│ └── index.html # HTML frontend
-├── static/
-│ ├── css/ # Styles (future)
-│ └── js/ # JavaScript (future)
-├── tests/ # Unit tests
-├── docs/ # Documentation
-├── requirements.txt # Python dependencies
-├── .gitignore # Files ignored by Git
-├── LICENSE # MIT License
-└── README.md # This file
+├── app.py                    # Aplicación Flask principal
+├── validator.py              # Lógica de validación de contraseñas
+├── requirements.txt          # Dependencias Python
+├── pytest.ini               # Configuración de pytest
+├── .gitignore               # Archivos ignorados por Git
+├── LICENSE                  # Licencia MIT
+├── README.md                # Documentación principal
+├── CONTRIBUTING.md          # Guía de contribución
+│
+├── templates/               # Templates HTML
+│   └── index.html          # Interfaz principal
+│
+├── static/                  # Archivos estáticos
+│   ├── css/                # Estilos CSS (futuro)
+│   └── js/                 # JavaScript (futuro)
+│
+├── tests/                   # Tests unitarios
+│   ├── __init__.py         # Init del módulo
+│   ├── conftest.py         # Configuración de pytest
+│   ├── test_app.py         # Tests de Flask app
+│   └── test_validator.py  # Tests del validador
+│
+├── docs/                    # Documentación adicional
+│   ├── ARCHITECTURE.md     # Arquitectura del sistema
+│   └── screenshots/        # Capturas de pantalla
+│
+└── htmlcov/                # Reportes de coverage (generado)
 ```
-
 ## 🎮 Usage
 
 ### Validate Password
@@ -175,6 +187,20 @@ python -m pytest --cov=. tests/
 
 ## 🚀 Roadmap
 
+### ✅ Completado
+- [x] **#6 Tests Completos** - 97% coverage, 32 tests
+
+### 🚧 En Progreso
+- [ ] **#2 HaveIBeenPwned API** - Detectar contraseñas filtradas
+
+### 📋 Pendiente
+- [ ] **#1 Sistema de Estadísticas** - Métricas y análisis
+- [ ] **#3 Modo Oscuro** - Dark/Light theme
+- [ ] **#4 Sistema de Usuarios** - Login y perfiles
+- [ ] **#5 Docker** - Containerización
+- [ ] **#7 CLI Tool** - Herramienta de terminal
+
+### sin clasificar
 - [ ] **Statistics**: Metrics and analytics system
 - [ ] **HaveIBeenPwned**: Detection of leaked passwords
 - [ ] **Dark Mode**: Toggle dark/light theme

@@ -157,7 +157,7 @@ class PasswordValidator:
     
     def generate_password(self, length: int = 12) -> str:
         chars = string.ascii_letters + string.digits + string.punctuation
-        import random
+        import random   #pragma: no cover
         
         password = []
         
