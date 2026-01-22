@@ -45,7 +45,7 @@ A modern and comprehensive web application for validating and generating secure 
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/password-validator-improved.git
+git clone https://github.com/AssistantIsa/password-validator-improved/
 cd password-validator-improved
 ```
 
